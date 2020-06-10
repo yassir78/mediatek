@@ -26,8 +26,11 @@ public class Client {
 	private Long num_cli;
 	private String nom;
 	private String prenom;
+	private String email;
+	private String password;
 	private String adresse;
 	private Date date_naissance;
+	private String role;
 	private String tel;
 	@OneToMany(mappedBy = "client")
 	@JsonProperty(access = Access.WRITE_ONLY)

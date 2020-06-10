@@ -3,6 +3,7 @@ package com.mediatek.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,14 @@ import com.mediatek.service.ClientService;
 
 @RestController
 @RequestMapping("mediatek-api/client")
+@CrossOrigin
 public class ClientRest {
 @Autowired
 private ClientService clientService;
+@GetMapping("/email/{email}/password/{password}")
+public Client findByEmailAndPassword(@PathVariable String email,@PathVariable String password) {
+	return clientService.findByEmailAndPassword(email, password);
+}
 @DeleteMapping("/id/{id}")
 public void delete(@PathVariable Long id) {
 	clientService.delete(id);

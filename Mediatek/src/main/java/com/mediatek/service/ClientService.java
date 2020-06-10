@@ -10,4 +10,5 @@ public interface ClientService {
 	public Client save(Client client);
 	public Client update(Long id,Client client);
 	public void delete(Long id);
+	 public Client findByEmailAndPassword(String email,String password);
 }

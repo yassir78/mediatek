@@ -49,4 +49,10 @@ public class ClientServiceImpl implements ClientService {
 		 clientDao.deleteById(id);
 	}
 
+	@Override
+	public Client findByEmailAndPassword(String email, String password) {
+		
+		return clientDao.findByEmailAndPassword(email, password);
+	}
+
 }
