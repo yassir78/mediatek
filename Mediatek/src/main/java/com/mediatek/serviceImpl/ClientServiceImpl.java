@@ -8,13 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mediatek.bean.Client;
+import com.mediatek.bean.Facture;
 import com.mediatek.dao.ClientDao;
+import com.mediatek.dao.FactureDao;
+import com.mediatek.dao.Ligne_factDao;
 import com.mediatek.service.ClientService;
+import com.mediatek.service.FactureService;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 	@Autowired
 	private ClientDao clientDao;
+	@Autowired
+	FactureService factureService;
 
 	@Override
 	public Client findByNom(String nom) {
@@ -46,7 +52,16 @@ public class ClientServiceImpl implements ClientService {
 	@Transactional
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		 clientDao.deleteById(id);
+		 Client client = clientDao.getOne(id);
+		 if(client != null) {
+			 if(client.getFactures() != null) {
+				 for (Facture facture : client.getFactures()) {
+					factureService.delete(facture.getNum_fact());
+				}
+			 }
+			 clientDao.deleteById(client.getNum_cli()); 
+		 }
+		 
 	}
 
 	@Override
@@ -54,5 +69,30 @@ public class ClientServiceImpl implements ClientService {
 		
 		return clientDao.findByEmailAndPassword(email, password);
 	}
+
+	@Override
+	public List<Client> findByrole(String role) {
+		// TODO Auto-generated method stub
+		return clientDao.findByrole(role);
+	}
+
+	@Override
+	public Client findByNumCLi(Long numCli) {
+		// TODO Auto-generated method stub
+     	System.out.println("////////////////////////////////////////////");
+		Client client = clientDao.getOne(numCli);
+		System.out.println(client);
+		System.out.println("////////////////////////////////////////////");
+		
+		return client;
+	}
+
+	@Override
+	public Client findByEmailAndNomAndPrenom(String email, String nom, String prenom) {
+		// TODO Auto-generated method stub
+		return clientDao.findByEmailAndNomAndPrenom(email, nom, prenom);
+	}
+
+
 
 }

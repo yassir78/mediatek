@@ -30,19 +30,24 @@ public class FactureServiceimpl implements FactureService {
 
 	@Override
 	public Facture save(Facture facture) {
-		Client client = clientService.findByNom(facture.getClient().getNom());
+		Client client = clientService.findByEmailAndPassword(facture.getClient().getEmail(),
+				facture.getClient().getPassword());
 		factureDao.save(facture);
 		if (client == null) {
 			clientService.save(facture.getClient());
 			client = facture.getClient();
 		}
 		for (Ligne_fact ligne_fact : facture.getLigne_factures()) {
-			Produit produit = produitDao.findBylibelle(ligne_fact.getProduit().getLibelle());
-			if (produit == null) {
-				produit = ligne_fact.getProduit();
-				produitDao.save(produit);
-			}
-			ligne_fact.setProduit(produit);
+		    if(ligne_fact.getProduit() != null) {
+		    	Produit produit = produitDao.findBylibelle(ligne_fact.getProduit().getLibelle());
+				if (produit == null) {
+					produit = ligne_fact.getProduit();
+					produitDao.save(produit);
+				}
+				ligne_fact.setProduit(produit);
+				ligne_fact.setFacture(facture);
+		    }
+	
 			ligne_factDao.save(ligne_fact);
 		}
 		facture.setClient(client);

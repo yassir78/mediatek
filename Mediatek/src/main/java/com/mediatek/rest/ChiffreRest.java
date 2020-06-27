@@ -3,6 +3,7 @@ package com.mediatek.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.mediatek.service.ChiffreService;
 
 @RestController
 @RequestMapping("mediatek-api/chiffre")
+@CrossOrigin
 public class ChiffreRest {
 @Autowired
 private ChiffreService chiffreService;

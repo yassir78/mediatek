@@ -12,6 +12,7 @@ import com.mediatek.service.Ligne_factService;
 
 @RestController
 @RequestMapping("mediatek-api/ligne_fact")
+
 public class Ligne_factRest {
 @Autowired 
 Ligne_factService ligne_factService;

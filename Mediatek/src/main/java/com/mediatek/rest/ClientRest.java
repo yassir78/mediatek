@@ -22,6 +22,18 @@ import com.mediatek.service.ClientService;
 public class ClientRest {
 @Autowired
 private ClientService clientService;
+@GetMapping("/email/{email}/nom/{nom}/prenom/{prenom}")
+public Client findByEmailAndNomAndPrenom(@PathVariable String email,@PathVariable String nom,@PathVariable String prenom) {
+	return clientService.findByEmailAndNomAndPrenom(email, nom, prenom);
+}
+@GetMapping("/id/{id}")
+public Client findByNumCLi(@PathVariable Long id) {
+	return clientService.findByNumCLi(id);
+}
+@GetMapping("/role/{role}")
+public List<Client> findByrole(@PathVariable String role) {
+	return clientService.findByrole(role);
+}
 @GetMapping("/email/{email}/password/{password}")
 public Client findByEmailAndPassword(@PathVariable String email,@PathVariable String password) {
 	return clientService.findByEmailAndPassword(email, password);

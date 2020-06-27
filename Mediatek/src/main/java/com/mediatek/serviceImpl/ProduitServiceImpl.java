@@ -7,14 +7,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mediatek.bean.Facture;
+import com.mediatek.bean.Ligne_fact;
 import com.mediatek.bean.Produit;
+import com.mediatek.dao.Ligne_factDao;
 import com.mediatek.dao.ProduitDao;
+import com.mediatek.service.Ligne_factService;
 import com.mediatek.service.ProduitService;
 
 @Service
 public class ProduitServiceImpl implements ProduitService {
 	@Autowired
 	private ProduitDao produitDao;
+	@Autowired
+	private Ligne_factDao ligne_factDao;
 
 	@Override
 	public Produit findBylibelle(String libelle) {
@@ -37,18 +43,15 @@ public class ProduitServiceImpl implements ProduitService {
 		return null;
 
 	}
-
 	@Override
 	@Transactional
 	public void deleteBylibelle(String libelle) {
-		// TODO Auto-generated method stub
-		Produit produit = findBylibelle(libelle);
+		Produit produit = produitDao.findBylibelle(libelle);
 		if (produit != null) {
-			System.out.println("le produit" + produit);
-
-			produitDao.deleteBylibelle(libelle);
-		} else {
-			System.out.println("le produit n'existe pas ");
+			for (Ligne_fact ligne_fact : produit.getLigne_factures()) {
+				ligne_factDao.deleteById(ligne_fact.getId());
+			}
+			produitDao.deleteById(produit.getNum_prod());;
 		}
 
 	}
@@ -67,8 +70,16 @@ public class ProduitServiceImpl implements ProduitService {
 		return produitDao.save(produit);
 	}
 
+
+
 	@Override
-	public String demande(Long num_prod) {
+	public Produit findById(Long id) {
+		// TODO Auto-generated method stub
+		return produitDao.getOne(id);
+	}
+
+	@Override
+	public Object demande(Long num_prod) {
 		// TODO Auto-generated method stub
 		return produitDao.demande(num_prod);
 	}

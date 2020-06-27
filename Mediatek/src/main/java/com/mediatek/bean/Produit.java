@@ -26,7 +26,7 @@ public class Produit {
 	private String libelle;
 	private double prix;
 	private int stock;
-	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "produit")
+	@JsonProperty(access = Access.WRITE_ONLY)
     private List<Ligne_fact> ligne_factures;
 }

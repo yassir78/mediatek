@@ -3,6 +3,7 @@ package com.mediatek.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mediatek.bean.Produit;
 import com.mediatek.service.ProduitService;
-
+@CrossOrigin
 @RestController
 @RequestMapping("mediatek-api/produit")
 public class ProduitRest {
 @Autowired
 private ProduitService produitService;
+@GetMapping("/id/{id}")
+public Produit findById(@PathVariable Long id) {
+	return produitService.findById(id);
+}
 @GetMapping("/num_prod/{num_prod}")
-public String demande(@PathVariable Long num_prod) {
+public Object demande(@PathVariable Long num_prod) {
 	return produitService.demande(num_prod);
 }
 @DeleteMapping("id/{id}")

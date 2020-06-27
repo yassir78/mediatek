@@ -23,12 +23,14 @@ public class Ligne_fact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@JoinColumn(name="num_prod")
+	private String ref;
 	@ManyToOne
+	@JoinColumn(name="num_prod")
 	private Produit produit;
 	@JoinColumn(name="num_fact")
 	@ManyToOne
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Facture facture;
 	private int qte;
+	private double prix;
 }

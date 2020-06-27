@@ -11,5 +11,6 @@ public interface ProduitService{
 	  public void deleteBylibelle(String libelle);
 	  public void delete(Long id);
 	  public Produit update(Long id , Produit produit);
-	  public String demande(Long num_prod);
+	  public Object demande(Long num_prod);
+	  public Produit findById(Long id);
 }
