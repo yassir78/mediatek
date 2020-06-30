@@ -25,6 +25,7 @@ public class Ligne_factServiceImpl implements Ligne_factService{
 @Override
 public List<Ligne_fact> findAll() {
 	return ligne_factDao.findAll();
+	/////////////////////
 }
 
 @Override
